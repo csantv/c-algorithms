@@ -8,24 +8,90 @@ int main()
     TQueue ptrQueue;
 
     create_queue(&ptrQueue);
-    enqueue(&ptrQueue, 3);
     enqueue(&ptrQueue, 8);
+    enqueue(&ptrQueue, 666);
     enqueue(&ptrQueue, 7);
     enqueue(&ptrQueue, 19);
-    enqueue(&ptrQueue, 666);
-
+    enqueue(&ptrQueue, 3);
     show_queue_elements(ptrQueue);
     printf("=======\n");
-    dequeue(&ptrQueue);
+    sort_queue(&ptrQueue);
     show_queue_elements(ptrQueue);
 
     return 0;
 }
 
+void sort_queue(TQueue* queue)
+{
+    int sorted, i;
+    TQueueNode * runner = NULL;
+    do {
+        sorted = 1; i = 0;
+        runner = *queue;
+        while (runner != NULL) {
+            if (!runner->next) break;
+            if (runner->elem > runner->next->elem) {
+                sorted = 0;
+                swap_nodes(queue, i, i + 1);
+            }
+            runner = runner->next;
+            i++;
+        }
+    } while (!sorted);
+}
+
+void swap_nodes(TQueue* queue, int x, int y)
+{
+    if (x == y) return;
+
+    int i;
+
+    i = 0;
+    TQueueNode * prevX = NULL, *currX = *queue;
+    while (currX && i != x) {
+        prevX = currX;
+        currX = currX->next;
+        i++;
+    }
+
+    i = 0;
+    TQueueNode * prevY = NULL, *currY = *queue;
+    while (currY && i != y) {
+        prevY = currY;
+        currY = currY->next;
+        i++;
+    }
+
+    if (prevX != NULL)
+        prevX->next = currY;
+    else
+        *queue = currY;
+
+    if (prevY != NULL)
+        prevY->next = currX;
+    else
+        *queue = currX;
+
+    if (!currX || !currY) return;
+
+    TQueueNode * temp = currY->next;
+    currY->next = currX->next;
+    currX->next = temp;
+}
+
+int queue_size(TQueue queue)
+{
+    int size = 0;
+    while (queue) {
+        queue = queue->next;
+        size++;
+    }
+    return size;
+}
+
 void create_queue(TQueue* queue)
 {
     *queue = NULL;
-
 }
 
 int is_empty(TQueue queue)

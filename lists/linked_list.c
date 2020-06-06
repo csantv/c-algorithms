@@ -16,11 +16,66 @@ int main()
     show_list(list);
     //printf("Size: %d\n", list_size(list));
     //show_list(list);
-    reverse(&list);
-    show_list(list);
-    order_list(&list);
+    //reverse(&list);
+    merge_sort(&list);
+    // show_list(list);
+    //order_list(&list);
     show_list(list);
     return 0;
+}
+
+void merge_sort(TList* ptr_list)
+{
+    TNode * head = *ptr_list;
+    TNode *a, *b;
+
+    if ((head == NULL) || (head->next == NULL)) return;
+
+    split_list(head, &a, &b);
+
+    merge_sort(&a);
+    merge_sort(&b);
+
+    *ptr_list = merge(a, b);
+}
+
+TList merge(TNode* a, TNode* b)
+{
+    TNode * result = NULL;
+
+    if (a == NULL)
+        return b;
+    else if (b == NULL)
+        return a;
+
+    if (a->data.data <= b->data.data) {
+        result = a;
+        result->next = merge(a->next, b);
+    } else {
+        result = b;
+        result->next = merge(a, b->next);
+    }
+
+    return result;
+}
+
+void split_list(TList orig, TList* res1, TList* res2)
+{
+    TNode * runner1, *runner2;
+    runner1 = orig;
+    runner2 = orig->next;
+
+    while (runner2 != NULL) {
+        runner2 = runner2->next;
+        if (runner2 != NULL) {
+            runner1 = runner1->next;
+            runner2 = runner2->next;
+        }
+    }
+
+    *res1 = orig;
+    *res2 = runner1->next;
+    runner1->next = NULL;
 }
 
 void order_list(TList* ptr_list)

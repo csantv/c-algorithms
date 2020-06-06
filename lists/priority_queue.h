@@ -1,5 +1,5 @@
-#ifndef ALGORITHMS_QUEUE_H
-#define ALGORITHMS_QUEUE_H
+#ifndef ALGORITHMS_PRIORITY_QUEUE_H
+#define ALGORITHMS_PRIORITY_QUEUE_H
 
 typedef struct QueueNode TQueueNode;
 typedef TQueueNode * TQueue;
@@ -14,8 +14,6 @@ void enqueue(TQueue*, int);
 void show_queue_elements(TQueue);
 int is_empty(TQueue);
 int dequeue(TQueue*);
-void sort_queue(TQueue*);
-void swap_nodes(TQueue*, int, int);
-int queue_size(TQueue);
+int max_queue_elem(TQueue);
 
-#endif //ALGORITHMS_QUEUE_H
+#endif

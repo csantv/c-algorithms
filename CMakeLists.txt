@@ -5,6 +5,6 @@ set(CMAKE_C_STANDARD 99)
 
 set(UTILS utils.c utils.h)
 
-add_executable(algorithms ${UTILS} lists/stack.c lists/stack.h)
+add_executable(algorithms ${UTILS} lists/linked_list.c lists/linked_list.h)
 
 target_link_libraries(algorithms gc)
