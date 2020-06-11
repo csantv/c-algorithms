@@ -1,3 +1,19 @@
+// C-Algorithms , algoritmos en C que uso
+// Copyright (C) 2020   Carlos Toro
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #include <stdio.h>
 #include <gc/gc.h>
 
@@ -17,11 +33,29 @@ int main()
     //printf("Size: %d\n", list_size(list));
     //show_list(list);
     //reverse(&list);
-    merge_sort(&list);
+    //merge_sort(&list);
     // show_list(list);
     //order_list(&list);
+    r_reverse(&list);
     show_list(list);
     return 0;
+}
+
+void r_reverse(TList* ptr_list)
+{
+    (*ptr_list) = (*recursive_reverse(ptr_list));
+}
+
+TList* recursive_reverse(TList* ptr_list)
+{
+    if ((*ptr_list) == NULL || (*ptr_list)->next == NULL)
+        return ptr_list;
+
+    TNode * head = (*ptr_list);
+    TList* rest = recursive_reverse(&(head->next));
+    head->next->next = (*ptr_list);
+    head->next = NULL;
+    return rest;
 }
 
 void merge_sort(TList* ptr_list)
