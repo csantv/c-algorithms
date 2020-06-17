@@ -14,38 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef ALGORITHMS_BINARY_H
-#define ALGORITHMS_BINARY_H
+#include <stdio.h>
+#include <stdlib.h>
 
-#define max(a,b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a > _b ? _a : _b; })
+#include "graph.h"
 
-typedef enum {false, true} bool;
+void insert_edge(GraphVertex* vertex_list, int v1, int v2, double weight)
+{
+    GraphVertex * vertex = exists_vertex(vertex_list, v1);
 
-typedef struct Node TNode;
-typedef struct Tree TBinaryTree ;
-
-struct Node {
-    int info;
-    TNode * left;
-    TNode * right;
-};
-
-struct Tree {
-    TNode * root;
-};
-
-void create_binary_tree(TBinaryTree**);
-void insert(TBinaryTree**, int);
-bool is_empty(TBinaryTree*);
-void print_preorder(TNode*);
-void print_inorder(TNode*);
-void print_postorder(TNode*);
-bool is_present(TBinaryTree*, int);
-int height(TNode*);
-int weight(TNode*);
-void remove_node(TBinaryTree**, int);
-
-#endif //ALGORITHMS_BINARY_H
+    if (vertex && exists_vertex(vertex, v2) && !exists_vertex())
+}

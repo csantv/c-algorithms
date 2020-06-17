@@ -14,38 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef ALGORITHMS_BINARY_H
-#define ALGORITHMS_BINARY_H
+#ifndef ALGORITHMS_GRAPH_H
+#define ALGORITHMS_GRAPH_H
 
-#define max(a,b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a > _b ? _a : _b; })
+typedef struct SGraphEdge GraphEdge;
+typedef struct SGraphVertex GraphVertex ;
 
-typedef enum {false, true} bool;
-
-typedef struct Node TNode;
-typedef struct Tree TBinaryTree ;
-
-struct Node {
-    int info;
-    TNode * left;
-    TNode * right;
+struct SGraphEdge {
+    int value;
+    double weight;
+    GraphEdge *next;
 };
 
-struct Tree {
-    TNode * root;
+struct SGraphVertex {
+    int value;
+    GraphEdge *edges;
+    GraphVertex* next;
 };
 
-void create_binary_tree(TBinaryTree**);
-void insert(TBinaryTree**, int);
-bool is_empty(TBinaryTree*);
-void print_preorder(TNode*);
-void print_inorder(TNode*);
-void print_postorder(TNode*);
-bool is_present(TBinaryTree*, int);
-int height(TNode*);
-int weight(TNode*);
-void remove_node(TBinaryTree**, int);
+GraphVertex* create_graph();
+GraphVertex* exists_vertex(GraphVertex* , int);
+GraphVertex* exists_edge(GraphVertex* , int);
+void insert_edge(GraphVertex*, int, int, double);
 
-#endif //ALGORITHMS_BINARY_H
+
+#endif
