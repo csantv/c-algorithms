@@ -14,7 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+// TODO:
+/*
+ * TODO:
+ * - Combinar 2 arboles usando postorden
+ */
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <gc/gc.h>
 
 #include "binary.h"
@@ -30,9 +37,32 @@ int main()
     insert(&tree, 16);
     insert(&tree, 7);
     insert(&tree, 4);
+    insert(&tree, 3);
+    insert(&tree, 2);
     insert(&tree, 20);
-    insert(&tree, 9);
+    insert(&tree, 21);
 
+    TBinaryTree* tree2;
+    create_binary_tree(&tree2);
+    insert(&tree2, 13);
+    insert(&tree2, 17);
+    insert(&tree2, 8);
+    insert(&tree2, 5);
+    insert(&tree2, 142);
+    insert(&tree2, 23);
+    insert(&tree2, 256);
+    insert(&tree2, 278);
+
+    print_preorder(tree->root);
+    printf("\n");
+
+    combine(&tree, tree2->root);
+
+    print_preorder(tree->root);
+    printf("\n");
+
+    // insert(&tree, 9);
+    /*
     printf("Imprimir en preorden: ");
     print_preorder(tree->root);
     printf("\n");
@@ -72,9 +102,43 @@ int main()
 
     printf("La altura del arbol es %d. \n", height(tree->root));
 
-    printf("El peso del arbol es %d.\n", weight(tree->root));
+    printf("El peso del arbol es %d.\n", weight(tree->root));*/
+
+    printf("%d\n", is_balanced(tree2->root));
 
     return 0;
+}
+
+void combine(TBinaryTree** dest, TNode* src)
+{
+    if (!src) return;
+
+    combine(dest, src->left);
+    combine(dest, src->right);
+    insert(dest, src->info);
+    //free(src);
+    //src = NULL;
+}
+
+bool is_balanced(TNode* node)
+{
+    if (!node) return true;
+
+    int left_height = height(node->left);
+    int right_height = height(node->right);
+
+    return abs(left_height - right_height) <= 1 && is_balanced(node->left) && is_balanced(node->right);
+}
+
+int min_value(TBinaryTree* tree)
+{
+    TNode * node = tree->root;
+
+    while (node->left) {
+        node = node->left;
+    }
+
+    return node->info;
 }
 
 void remove_node(TBinaryTree** tree, int value)
@@ -218,7 +282,7 @@ void insert(TBinaryTree** tree, int data)
 {
     TNode * new_node = GC_malloc(sizeof(TNode));
     new_node->left = NULL;
-    new_node->left = NULL;
+    new_node->right = NULL;
     new_node->info = data;
 
     TNode * aux = (*tree)->root;

@@ -21,6 +21,6 @@ set(CMAKE_C_STANDARD 99)
 
 set(UTILS utils.c utils.h)
 
-add_executable(algorithms ${UTILS} trees/binary.c trees/binary.h graph/graph.c graph/graph.h)
+add_executable(algorithms ${UTILS} trees/binary.c trees/binary.h)
 
 target_link_libraries(algorithms gc)

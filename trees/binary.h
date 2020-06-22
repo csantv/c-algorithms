@@ -47,5 +47,8 @@ bool is_present(TBinaryTree*, int);
 int height(TNode*);
 int weight(TNode*);
 void remove_node(TBinaryTree**, int);
+int min_value(TBinaryTree*);
+bool is_balanced(TNode*);
+void combine(TBinaryTree**, TNode*);
 
 #endif //ALGORITHMS_BINARY_H

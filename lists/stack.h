@@ -25,7 +25,6 @@ struct StackNode {
     TStackNode * next;
 };
 
-
 void create_stack(TStack*);
 void push(TStack*,int);
 void show_stack_elems(TStack);
