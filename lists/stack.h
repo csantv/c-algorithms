@@ -17,19 +17,18 @@
 #ifndef ALGORITHMS_STACK_H
 #define ALGORITHMS_STACK_H
 
-typedef struct StackNode TStackNode;
-typedef TStackNode* TStack;
+typedef struct Stack TStack;
 
-struct StackNode {
+struct Stack {
     int value;
-    TStackNode * next;
+    TStack * next;
 };
 
-void create_stack(TStack*);
-void push(TStack*,int);
-void show_stack_elems(TStack);
-int pop(TStack*);
-int is_empty(TStack*);
+void create_stack(TStack**);
+void push(TStack**,int);
+void show_stack_elems(TStack*);
+int pop(TStack**);
+int is_empty(TStack**);
 
 
 #endif //ALGORITHMS_STACK_H

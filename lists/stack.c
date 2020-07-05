@@ -21,7 +21,7 @@
 
 int main()
 {
-    TStack stack;
+    TStack* stack;
 
     create_stack(&stack);
     push(&stack, 5);
@@ -37,21 +37,21 @@ int main()
     return 0;
 }
 
-void create_stack(TStack* ptr_stack)
+void create_stack(TStack** ptr_stack)
 {
     *ptr_stack = NULL;
 }
 
-void push(TStack* ptr_stack, int elem)
+void push(TStack** ptr_stack, int elem)
 {
-    TStackNode * ptrNewNode;
-    ptrNewNode = GC_malloc(sizeof(TStackNode));
+    TStack * ptrNewNode;
+    ptrNewNode = GC_malloc(sizeof(TStack));
     ptrNewNode->value = elem;
     ptrNewNode->next = *ptr_stack;
     *ptr_stack = ptrNewNode;
 }
 
-void show_stack_elems(TStack stack)
+void show_stack_elems(TStack* stack)
 {
     if (stack == NULL) {
         return;
@@ -61,14 +61,14 @@ void show_stack_elems(TStack stack)
     printf("%d ", stack->value);
 }
 
-int is_empty(TStack* stack)
+int is_empty(TStack** stack)
 {
     return *stack == NULL;
 }
 
-int pop(TStack* stack)
+int pop(TStack** stack)
 {
-    TStackNode * delete;
+    TStack * delete;
     int value = -1;
 
     if (!is_empty(stack)) {
