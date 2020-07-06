@@ -51,4 +51,20 @@ int min_value(TBinaryTree*);
 bool is_balanced(TNode*);
 void combine(TBinaryTree**, TNode*);
 
+typedef struct Stack TStack;
+
+struct Stack {
+    TNode * value;
+    TStack * next;
+};
+
+TNode* pop(TStack**);
+void push(TStack**, TNode*);
+void create_stack(TStack**);
+
+// iterative functions
+void it_preorder(TBinaryTree*);
+void it_inorder(TBinaryTree*);
+void it_postorder(TBinaryTree*);
+
 #endif //ALGORITHMS_BINARY_H

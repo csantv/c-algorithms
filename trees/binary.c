@@ -53,6 +53,11 @@ int main()
     insert(&tree2, 256);
     insert(&tree2, 278);
 
+    it_preorder(tree);
+    it_postorder(tree);
+    it_inorder(tree);
+
+    /*
     print_preorder(tree->root);
     printf("\n");
 
@@ -60,7 +65,7 @@ int main()
 
     print_preorder(tree->root);
     printf("\n");
-
+    */
     // insert(&tree, 9);
     /*
     printf("Imprimir en preorden: ");
@@ -107,6 +112,106 @@ int main()
     printf("%d\n", is_balanced(tree2->root));
 
     return 0;
+}
+
+void it_preorder(TBinaryTree* tree)
+{
+    if (!tree) return;
+
+    TStack * stack = NULL;
+    push(&stack, tree->root);
+
+    while (stack) {
+        TNode * node = pop(&stack);
+        printf("%d ", node->info);
+
+        if (node->right)
+            push(&stack, node->right);
+
+        if (node->left)
+            push(&stack, node->left);
+    }
+
+    printf("\n");
+}
+
+void it_inorder(TBinaryTree* tree)
+{
+    TStack * stack = NULL;
+    TNode * curr = tree->root;
+
+    while (true) {
+        if (curr) {
+            push(&stack, curr);
+            curr = curr->left;
+        } else {
+            if (!stack) break;
+
+            curr = pop(&stack);
+            printf("%d ", curr->info);
+            curr = curr->right;
+        }
+    }
+
+    printf("\n");
+}
+
+void it_postorder(TBinaryTree* tree)
+{
+    if (!tree) return;
+
+    TStack * s1 = NULL;
+    TStack * s2 = NULL;
+
+    push(&s1, tree->root);
+
+    TNode * node;
+
+    while (s1) {
+        node = pop(&s1);
+        push(&s2, node);
+
+        if (node->left)
+            push(&s1, node->left);
+
+        if (node->right)
+            push(&s1, node->right);
+    }
+
+    while (s2) {
+        node = pop(&s2);
+        printf("%d ", node->info);
+    }
+
+    printf("\n");
+}
+
+void push(TStack** ptr_stack, TNode* node)
+{
+    TStack * ptrNewNode;
+    ptrNewNode = GC_malloc(sizeof(TStack));
+    ptrNewNode->value = node;
+    ptrNewNode->next = *ptr_stack;
+    *ptr_stack = ptrNewNode;
+}
+
+TNode* pop(TStack** stack)
+{
+    TStack * delete;
+    TNode * node = NULL;
+
+    if (*stack) {
+        delete = *stack;
+        node = delete->value;
+        (*stack) = (*stack)->next;
+    }
+
+    return node;
+}
+
+void create_stack(TStack** ptr_stack)
+{
+    *ptr_stack = NULL;
 }
 
 void combine(TBinaryTree** dest, TNode* src)
